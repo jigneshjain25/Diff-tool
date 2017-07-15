@@ -6,8 +6,6 @@ using namespace std;
 int dp[MAXLINES][MAXLINES], penalty[MAXLINES][MAXLINES];
 vector<string> v1,v2;
 
-/* The below three functions for string trimming are taken from some SO Answer.
-C++ folks, when do you think is the right time to add such a basic function to string library? */
 
 // trim from start (in place)
 static inline void ltrim(std::string &s) {
@@ -67,9 +65,9 @@ void calculatePenalties() {
         for (int j=0;j<v2.size();j++) {
             string line2 = v2[j];
             trim(line2);
-            penalty[i][j] = abs((int)line1.length() - (int)line2.length());
+            penalty[i][j] = line1.length() + line2.length();
             for (int k=0;k<min(line1.length(), line2.length()); k++) {
-                if (line1[k] != line2[k]) penalty[i][j]++;
+                if (line1[k] == line2[k]) penalty[i][j]-=2;
             }
         }
     }
@@ -81,12 +79,12 @@ int solve(int i1, int i2) {
         if (i1 == v1.size()) {
             ans = 0;
             for (int i=i2;i<v2.size();i++)
-                ans += (int)v2[i2].length();
+                ans += (int)v2[i].length();
         }
         else if (i2 == v2.size()) {
             ans = 0;
             for (int i=i1;i<v1.size();i++)
-                ans += (int)v1[i1].length();
+                ans += (int)v1[i].length();
         }
         else {
             ans = penalty[i1][i2] + solve(i1+1,i2+1);
