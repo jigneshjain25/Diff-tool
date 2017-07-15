@@ -6,6 +6,9 @@ using namespace std;
 int dp[MAXLINES][MAXLINES], penalty[MAXLINES][MAXLINES];
 vector<string> v1,v2;
 
+/* The following three functions for trim are taken from some SO answer.
+@C++ folks, when do you think will be the right time to add such a
+basic functionality to string library? */
 
 // trim from start (in place)
 static inline void ltrim(std::string &s) {
